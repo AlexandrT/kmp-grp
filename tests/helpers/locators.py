@@ -3,3 +3,8 @@ from selenium.webdriver.common.by import By
 class MainPageLocators(object):
     SEARCH_BUTTON = (By.XPATH, '//input[@name="search"]/following-sibling::span')
     BOOK_BLOCK = (By.XPATH, '//div[@data-bookid]')
+
+    BOOK_NAME = (By.XPATH, '//h2')
+    INFO_BLOCKS = (By.XPATH, '//p[b]')
+    PRICE = (By.XPATH, '//p[@class="price"]')
+    DESCRIPTION = (By.XPATH, '//p[@class="price"]/following-sibling::p')

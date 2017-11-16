@@ -5,14 +5,15 @@ import time
 from config import settings
 from fixtures import test_data
 from utils import *
+from support.assertions import *
 import page
 
 logger = logging.getLogger('public_api')
 
 REQUEST_PATH = '/www/index.php'
 
-class TestSearch:
-    """Test search"""
+class TestDescription:
+    """Test description"""
 
     def setup_class(cls):
         cls.translator = KmpTranslator()
@@ -29,29 +30,18 @@ class TestSearch:
         logger.info('------------------TEST FINISHED------------------')
 
     def test_by_name(self, selenium):
-        """by name should be result"""
+        """of book"""
         selenium.get(f"{settings.MAIN_URL}{REQUEST_PATH}")
 
         main_page = page.MainPage(selenium)
-        main_page.search_book_element = test_data.NAME
-        main_page.click_search_button()
+        main_page.click_first_book()
 
-        time.sleep(2)
+        book_info = {}
+        book_info = main_page.collect_book_info()
 
-        books = main_page.get_books_count()
+        expected = { 'name': test_data.NAME, 'author': test_data.AUTHOR, 'isbn':
+                test_data.ISBN, 'pages_count': test_data.PAGES_COUNT,
+                'provider_id': test_data.PROVIDER_ID, 'price': test_data.PRICE,
+                'description': test_data.DESCRIPTION }
 
-        assert books == 1
-
-    def test_by_author(self, selenium):
-        """by author should be result"""
-        selenium.get(f"{settings.MAIN_URL}{REQUEST_PATH}")
-
-        main_page = page.MainPage(selenium)
-        main_page.search_book_element = test_data.AUTHOR
-        main_page.click_search_button()
-
-        time.sleep(2)
-
-        books = main_page.get_books_count()
-
-        assert books == 5
+        assert_dict_equals(expected, book_info)
