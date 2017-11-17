@@ -8,3 +8,12 @@ class MainPageLocators(object):
     INFO_BLOCKS = (By.XPATH, '//p[b]')
     PRICE = (By.XPATH, '//p[@class="price"]')
     DESCRIPTION = (By.XPATH, '//p[@class="price"]/following-sibling::p')
+
+    BUY_BUTTON = (By.XPATH, './/button[@class="buy"]')
+    PRICE_BLOCK = (By.XPATH, './/div[@class="price"]')
+
+    BUCKET = (By.XPATH, '//i[@class="fi fi-cart"]')
+    ITEM_COUNT = (By.XPATH, '//sup[@class="itemcount"]')
+
+class BucketPageLocators(object):
+    PRICE_BLOCK = (By.XPATH, '//div[@class="total"]')

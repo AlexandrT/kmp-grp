@@ -28,51 +28,72 @@ class MainPage(BasePage):
         books[0].click()
 
     def collect_book_info(self):
-        name = self.get_name()
-        author = self.get_author()
-        isbn = self.get_isbn()
-        pages_count = self.get_pages_count()
-        provider_id = self.get_provider_id()
-        price = self.get_price().split(':')[1]
-        description = self.get_description()
+        name = self.get_name_info()
+        author = self.get_author_info()
+        isbn = self.get_isbn_info()
+        pages_count = self.get_pages_count_info()
+        provider_id = self.get_provider_id_info()
+        price = self.get_price_info().split(':')[1]
+        description = self.get_description_info()
 
         return { 'name': name, 'author': author, 'isbn': isbn, 'pages_count': pages_count,
                 'provider_id': provider_id, 'price': price, 'description': description }
 
-    def get_name(self):
+    def get_name_info(self):
         element = self.driver.find_element(*MainPageLocators.BOOK_NAME)
         return element.text
 
-    def get_author(self):
+    def get_author_info(self):
         elements = self.driver.find_elements(*MainPageLocators.INFO_BLOCKS)
         author = select_element("Автор:", elements)
 
         return author
 
-    def get_isbn(self):
+    def get_isbn_info(self):
         elements = self.driver.find_elements(*MainPageLocators.INFO_BLOCKS)
         isbn = select_element("ISBN:", elements)
 
         return isbn
 
-    def get_pages_count(self):
+    def get_pages_count_info(self):
         elements = self.driver.find_elements(*MainPageLocators.INFO_BLOCKS)
         pages_count = select_element("Кол-во страниц:", elements)
         return pages_count
 
-    def get_provider_id(self):
+    def get_provider_id_info(self):
         elements = self.driver.find_elements(*MainPageLocators.INFO_BLOCKS)
         provider_id = select_element("ID поставщика:", elements)
 
         return provider_id
 
-    def get_price(self):
+    def get_price_info(self):
         element = self.driver.find_element(*MainPageLocators.PRICE)
         return element.text
 
-    def get_description(self):
+    def get_description_info(self):
         element = self.driver.find_element(*MainPageLocators.DESCRIPTION)
         return element.text
+
+    def click_buy_button(self, parent):
+        element = parent.find_element(*MainPageLocators.BUY_BUTTON)
+        element.click()
+
+    def get_price(self, parent):
+        element = parent.find_element(*MainPageLocators.PRICE_BLOCK)
+        return element
+
+    def click_bucket(self):
+        element = self.driver.find_element(*MainPageLocators.BUCKET)
+        element.click()
+
+    def get_item_count(self):
+        element = self.driver.find_element(*MainPageLocators.ITEM_COUNT)
+        return element
+
+class BucketPage(BasePage):
+    def get_price(self):
+        element = self.driver.find_element(*BucketPageLocators.PRICE_BLOCK)
+        return element
 
 def select_element(substring, arr):
     for elem in arr:
