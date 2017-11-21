@@ -17,3 +17,4 @@ class MainPageLocators(object):
 
 class BucketPageLocators(object):
     PRICE_BLOCK = (By.XPATH, '//div[@class="total"]')
+    MAKE_ORDER_BUTTON = (By.XPATH, '//div[@class="makeorder"]/button')

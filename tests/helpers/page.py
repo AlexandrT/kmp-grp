@@ -95,6 +95,14 @@ class BucketPage(BasePage):
         element = self.driver.find_element(*BucketPageLocators.PRICE_BLOCK)
         return element
 
+    def click_make_order_button(self):
+        element = self.driver.find_element(*BucketPageLocators.MAKE_ORDER_BUTTON)
+        element.click()
+
+    def get_order_info_block(self):
+        element = self.driver.find_element(*BucketPageLocators.ORDER_INFO_BLOCK)
+        return  element
+
 def select_element(substring, arr):
     for elem in arr:
         if substring in elem.text:
